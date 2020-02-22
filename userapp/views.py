@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from userapp.models import User, Account
 from userapp.serializer import UserSerializer, AccountSerializer
 from rest_framework.response import Response
-
+from userapp.services import *
 # Create your views here.
 
 
@@ -48,9 +48,5 @@ class AccountsView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create_acc(self, request, pk):
-        serializer = AccountSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return create_acc_no(pk , request.data)
 
