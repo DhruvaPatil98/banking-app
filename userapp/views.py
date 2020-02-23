@@ -37,6 +37,12 @@ class UsersView(viewsets.ViewSet):
         serializer = AccountSerializer(account, many=True)
         return Response(serializer.data)
 
+    def delete_user(self, request, pk):
+        user = User.objects.get(pk=pk)
+        user.delete()
+        return Response("Deleted User Sucessfully")
+
+
 
 class AccountsView(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -50,3 +56,12 @@ class AccountsView(viewsets.ViewSet):
     def create_acc(self, request, pk):
         return create_acc_no(pk , request.data)
 
+    def list_acc(self, request, id, pk):
+        queryset = Account.objects.get(id=id)
+        serializer = AccountSerializer(queryset)
+        return Response(serializer.data)
+
+    def delete_acc(self, request, id, pk):
+        acc = Account.objects.get(id=id)
+        acc.delete()
+        return Response("Account deleted Sucessfully")
