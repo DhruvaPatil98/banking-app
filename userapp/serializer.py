@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
-from userapp.models import User, Account
+from userapp.models import User, Account, Transactions
+
 
 class UserSerializer(serializers.ModelSerializer):
  
@@ -16,4 +17,8 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-        
+class TransactionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Transactions
+        fields = ('amount',)

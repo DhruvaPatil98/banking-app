@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from userapp.models import User, Account
-from userapp.serializer import UserSerializer, AccountSerializer
+from userapp.models import User, Account, Transactions
+from userapp.serializer import UserSerializer, AccountSerializer, TransactionSerializer
 from rest_framework.response import Response
-from userapp.services import *
+from userapp.services import deposit, create_acc_no, withdraw
 # Create your views here.
 
 
@@ -54,7 +54,7 @@ class AccountsView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create_acc(self, request, pk):
-        return create_acc_no(pk , request.data)
+        return create_acc_no(pk, request.data)
 
     def list_acc(self, request, id, pk):
         queryset = Account.objects.get(id=id)
@@ -65,3 +65,15 @@ class AccountsView(viewsets.ViewSet):
         acc = Account.objects.get(id=id)
         acc.delete()
         return Response("Account deleted Sucessfully")
+
+
+class TransactionsView(viewsets.ViewSet):
+    queryset = Transactions.objects.all()
+    serializer_class = TransactionSerializer
+
+    def deposit_amt(self, request, pk, id):
+        return deposit(pk, request.data['amount'], id)
+
+    def withdraw_amt(self, request, pk, id):
+        return withdraw(pk, request.data['amount'], id)
+

@@ -1,6 +1,6 @@
 
-from django.db import models
 import uuid
+from django.db import models
 from django.core.validators import MinValueValidator
 
 
@@ -27,3 +27,13 @@ class Account(models.Model):
     def __str__(self):
         return str(self.acc_no)
 
+
+class Transactions(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sender_acc = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_sender')
+    reciver_acc = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_reciver')
+    amount = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    action = models.CharField(max_length=8 , default='deposit')
+
+    def __str__(self):
+        return str(self.sender_acc)+" "+str(self.reciver_acc)+" "+str(self.amount)

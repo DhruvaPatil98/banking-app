@@ -29,3 +29,22 @@ def create_acc_no(pk, pin):
     else :
         return Response("Cannot have more than 3 acocunts")
 
+
+def withdraw(self, amount, pk):
+    acc = Account.objects.get(pk=pk)
+    if int(acc.balance) >= 2000:
+        if int(amount) <= (int(acc.balance)) and (int(acc.balance) - int(amount) >= 2000):
+            acc.balance -= int(amount)
+            acc.save()
+            return Response("Amount withdrawn sucessfully")
+        else:
+            return Response("Insufficient balance")
+    
+
+def deposit(self, amount, pk):
+    acc = Account.objects.get(pk=pk)
+    acc.balance += int(amount)
+    acc.save()
+    return Response("Amount deposited sucessfully")
+
+        
