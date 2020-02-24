@@ -31,9 +31,7 @@ urlpatterns = [
     path('users/<uuid:pk>/accounts/', views.UsersView.as_view({'get': 'user_accounts'})),
     path('users/<uuid:pk>/accounts/create/', views.AccountsView.as_view({'post': 'create_acc'})),
     path('users/<uuid:pk>/accounts/<id>/', views.AccountsView.as_view({'get': 'list_acc'})),
-    path('users/<uuid:pk>/accounts/<id>/deposit/', views.TransactionsView.as_view({'post': 'deposit_amt'})),
-    path('users/<uuid:pk>/accounts/<id>/withdraw/', views.TransactionsView.as_view({'post': 'withdraw_amt'})),
+    path('users/<uuid:pk>/accounts/<id>/action/', views.TransactionsView.as_view({'post': 'action'})),
     path('users/<uuid:pk>/accounts/<id>/delete/', views.AccountsView.as_view({'get': 'delete_acc'})),
     path('', include('userapp.urls')),
-
 ]

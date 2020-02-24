@@ -71,9 +71,11 @@ class TransactionsView(viewsets.ViewSet):
     queryset = Transactions.objects.all()
     serializer_class = TransactionSerializer
 
-    def deposit_amt(self, request, pk, id):
-        return deposit(pk, request.data['amount'], id)
-
-    def withdraw_amt(self, request, pk, id):
-        return withdraw(pk, request.data['amount'], id)
+    def action(self, request, pk, id):
+        if request.data['action'] == 'deposit':
+            return deposit(pk, request.data['amount'], id)
+        elif request.data['action'] == 'withdraw':
+            return withdraw(pk, request.data['amount'], id)
+        else:
+            return Response("Specify correct Action ")
 
