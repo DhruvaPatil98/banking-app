@@ -1,10 +1,10 @@
-
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator
 
 
 # Create your models here.
+
 
 class User(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -30,10 +30,18 @@ class Account(models.Model):
 
 class Transactions(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sender_acc = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_sender')
-    reciver_acc = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_reciver')
     amount = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     action = models.CharField(max_length=8, default='deposit')
 
     def __str__(self):
-        return str(self.sender_acc)+" "+str(self.reciver_acc)+" "+str(self.amount)
+        return str(self.amount)+" "+self.action
+
+
+class Transfer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sender = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_sender')
+    reciver = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_reciver')
+    amount = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+
+    def __str__(self):
+        return "Sender : "+str(self.sender)+" , "+" Reciver : "+str(self.reciver)+" , "+" Amount : "+str(self.amount)

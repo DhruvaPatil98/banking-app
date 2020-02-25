@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from userapp.models import User, Account, Transactions
-from userapp.serializer import UserSerializer, AccountSerializer, TransactionSerializer
+from userapp.models import User, Account, Transactions, Transfer
+from userapp.serializer import UserSerializer, AccountSerializer, TransactionSerializer, TransferSerializer
 from rest_framework.response import Response
-from userapp.services import deposit, create_acc_no, withdraw
+from userapp.services import deposit, create_acc_no, withdraw, transfer
 # Create your views here.
 
 
@@ -43,24 +43,27 @@ class UsersView(viewsets.ViewSet):
         return Response("Deleted User Sucessfully")
 
 
-
 class AccountsView(viewsets.ViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     
+    # used to get all accounts
     def list(self, request):
-        queryset = Account.objects.all()
-        serializer = AccountSerializer(queryset, many=True)
+        acc = Account.objects.all()
+        serializer = AccountSerializer(acc, many=True)
         return Response(serializer.data)
 
+    # used to create the accounts for the user
     def create_acc(self, request, pk):
         return create_acc_no(pk, request.data)
 
+    # used to get a particular account of the user
     def list_acc(self, request, id, pk):
-        queryset = Account.objects.get(id=id)
-        serializer = AccountSerializer(queryset)
+        account = Account.objects.get(id=id)
+        serializer = AccountSerializer(account)
         return Response(serializer.data)
 
+    # used to delete account
     def delete_acc(self, request, id, pk):
         acc = Account.objects.get(id=id)
         acc.delete()
@@ -79,3 +82,21 @@ class TransactionsView(viewsets.ViewSet):
         else:
             return Response("Specify correct Action ")
 
+
+class TransferView(viewsets.ViewSet):
+    queryset = Transfer.objects.all()
+    serializer_class = TransferSerializer
+
+    def list(self, request):
+        queryset = Transfer.objects.all()
+        serializer = TransferSerializer(queryset, many=True)
+        log_file = open('log.txt', 'a+')
+        log_file.write(str(serializer.data))
+        log_file.write('\n')
+        log_file.write(str(queryset))
+        log_file.write('\n')
+        log_file.close()
+        return Response(serializer.data)
+
+    def transfer_amt(self, request, pk, id):
+        return transfer(pk, id, amount=request.data['amount'], reciver_acc=request.data['reciver'])

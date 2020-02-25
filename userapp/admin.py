@@ -1,5 +1,5 @@
 from django.contrib import admin
-from userapp.models import Account, User, Transactions 
+from userapp.models import Account, User, Transactions, Transfer
 
 # Register your models here.
 
@@ -13,3 +13,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Transactions)
+admin.site.register(Transfer)

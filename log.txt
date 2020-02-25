@@ -1,0 +1,13 @@
+[]
+[]
+<QuerySet []>
+[]
+<QuerySet []>
+[]
+<QuerySet []>
+[OrderedDict([('id', '72d37967-51f0-4dc1-8d40-07fa8e31a1f3'), ('amount', 300), ('sender', UUID('9e75a5cf-9fdd-46da-a572-81956ae6759d')), ('reciver', UUID('3211157a-0a1d-485f-b47a-c1f1fd258c14'))])]
+<QuerySet [<Transfer: 4624260025 2585132331>]>
+[OrderedDict([('id', '72d37967-51f0-4dc1-8d40-07fa8e31a1f3'), ('amount', 300), ('sender', UUID('9e75a5cf-9fdd-46da-a572-81956ae6759d')), ('reciver', UUID('3211157a-0a1d-485f-b47a-c1f1fd258c14'))])]
+<QuerySet [<Transfer: 4624260025 2585132331>]>
+[OrderedDict([('id', '72d37967-51f0-4dc1-8d40-07fa8e31a1f3'), ('amount', 300), ('sender', UUID('9e75a5cf-9fdd-46da-a572-81956ae6759d')), ('reciver', UUID('3211157a-0a1d-485f-b47a-c1f1fd258c14'))]), OrderedDict([('id', '72bca104-dcf4-4f92-b70b-a40017b913df'), ('amount', 100), ('sender', UUID('9e75a5cf-9fdd-46da-a572-81956ae6759d')), ('reciver', UUID('3211157a-0a1d-485f-b47a-c1f1fd258c14'))])]
+<QuerySet [<Transfer: 4624260025 2585132331>, <Transfer: 4624260025 2585132331>]>
