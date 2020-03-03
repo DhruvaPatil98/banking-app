@@ -38,7 +38,7 @@ class Transactions(models.Model):
 
 
 class Transfer(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    Transaction_Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sender = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_sender')
     reciver = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transactions_reciver')
     amount = models.IntegerField(validators=[MinValueValidator(0)], default=0)

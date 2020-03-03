@@ -9,8 +9,8 @@ class AccountInLine(admin.StackedInline):
 
 
 class UserAdmin(admin.ModelAdmin):
+  
   inlines = [AccountInLine]
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Transactions)
 admin.site.register(Transfer)

@@ -47,23 +47,19 @@ class AccountsView(viewsets.ViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     
-    # used to get all accounts
     def list(self, request):
         acc = Account.objects.all()
         serializer = AccountSerializer(acc, many=True)
         return Response(serializer.data)
 
-    # used to create the accounts for the user
     def create_acc(self, request, pk):
         return create_acc_no(pk, request.data)
 
-    # used to get a particular account of the user
     def list_acc(self, request, id, pk):
         account = Account.objects.get(id=id)
         serializer = AccountSerializer(account)
         return Response(serializer.data)
 
-    # used to delete account
     def delete_acc(self, request, id, pk):
         acc = Account.objects.get(id=id)
         acc.delete()
@@ -100,3 +96,4 @@ class TransferView(viewsets.ViewSet):
 
     def transfer_amt(self, request, pk, id):
         return transfer(pk, id, amount=request.data['amount'], reciver_acc=request.data['reciver'])
+        
